@@ -14,8 +14,7 @@ func bootstrap() {
 	sigc := make(chan os.Signal, 1)
 	signal.Notify(sigc, os.Interrupt, os.Kill)
 
-	conn := connect.Connection{Host: "iot.eclipse.org"}
-	conn.Connect()
+	conn := connect.New("iot.eclipse.org", 1883, "Axi Client")
 	conn.Listen("hello/#")
 	conn.Send("hello/123", "Hello 123! Sending to channel hello/123.")
 

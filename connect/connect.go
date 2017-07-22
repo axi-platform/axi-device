@@ -16,6 +16,12 @@ type Connection struct {
 	Name   string
 }
 
+func New(host string, port int, name string) Connection {
+	conn := Connection{Host: host, Port: port, Name: name}
+	conn.Connect()
+	return conn
+}
+
 // Connect to the MQTT server
 func (c *Connection) Connect() {
 	c.client = client.New(&client.Options{
