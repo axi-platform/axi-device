@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "bcrypt-as-promised": "^1.1.0"
+  }
+}

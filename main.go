@@ -17,7 +17,7 @@ func main() {
 	system.OfflineHandler()
 
 	// beacon.Advertise("phoom.in.th")
-	// beacon.Broadcast("data.in.th", "helloworld")
+	// beacon.Broadcast("com.xyz", "helloworld")
 
 	<-sigc
 

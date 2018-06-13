@@ -30,7 +30,7 @@ type Connection struct {
 
 // New instantiates a connection to the MQTT server
 func New(host string, port int, name string, username string, password string) (Connection, error) {
-	conn := Connection{Host: host, Port: port, Name: name}
+	conn := Connection{Host: host, Port: port, Name: name, Username: username, Password: password}
 	err := conn.Connect()
 
 	if err != nil {
