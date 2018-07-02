@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"strconv"
 
+	"github.com/fatih/color"
 	"github.com/yosssi/gmq/mqtt"
 	"github.com/yosssi/gmq/mqtt/client"
 )
@@ -44,9 +45,10 @@ func New(host string, port int, name string, username string, password string) (
 func (c *Connection) Connect() error {
 	c.client = client.New(&client.Options{
 		ErrorHandler: func(err error) {
-			fmt.Println("[MQTT Error]", err)
+			fmt.Errorf("[MQTT Connection Error] %s", err)
 		},
 	})
+
 	defer c.client.Terminate()
 
 	if c.Port == 0 {
@@ -54,16 +56,16 @@ func (c *Connection) Connect() error {
 	}
 
 	if c.Name == "" {
-		c.Name = "Unnamed Axi Client"
+		c.Name = "anonymous"
 	}
 
 	address := string(c.Host) + ":" + strconv.Itoa(c.Port)
-	fmt.Println("[MQTT] Attempting to connect to the broker at", address)
+	color.Yellow("[MQTT] Attempting connection to MQTT Broker at %s", address)
 
 	will := &Will{}
 
 	will.Topic = "axi/status"
-	will.Message = "EXIT"
+	will.Message = "DISCONNECT"
 
 	err := c.client.Connect(&client.ConnectOptions{
 		Network:      "tcp",
@@ -79,11 +81,11 @@ func (c *Connection) Connect() error {
 	})
 
 	if err != nil {
-		fmt.Println("[Error] Connection to the MQTT Broker Failed.")
+		color.Red("[Error] Connection to the MQTT Broker Failed!")
 		return err
 	}
 
-	fmt.Println("[MQTT] Connection to the MQTT Broker is Established.")
+	color.Green("[MQTT] Connection to the MQTT Broker is Established.")
 	return nil
 }
 

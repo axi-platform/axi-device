@@ -88,8 +88,7 @@ func (s *Store) LatestAction() Action {
 
 // Debug logs the state tree and the action log.
 func (s *Store) Debug() {
-	fmt.Println("Store Updated. Notifying Listeners...")
-	fmt.Printf("State is %s, latest action is %s.\n", s.State, s.LatestAction().Type)
+	fmt.Printf("[Store] State is %s, latest action is %s.\n", s.State, s.LatestAction().Type)
 }
 
 // MakeActionCreator creates an Action Creator
